@@ -1,0 +1,185 @@
+package animal_farm_project;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class AnimalFarm {
+    private List<Animal> animals;
+    private List<Animal> newAnimals;
+
+    public AnimalFarm() {
+        this.animals = new ArrayList<>();
+        this.newAnimals = new ArrayList<>();
+    }
+
+    public void addAnimal(Animal animal) {
+        animals.add(animal);
+    }
+
+    public void addNewAnimal(String name, int weight, String color, String type) {
+        switch (type.toLowerCase()) {
+            case "dog":
+                Dog newDog = new Dog(name, weight, color);
+                newAnimals.add(newDog);
+                animals.add(newDog);
+                break;
+            case "cat":
+                Cat newCat = new Cat(name, weight, color);
+                newAnimals.add(newCat);
+                animals.add(newCat);
+                break;
+            case "chicken":
+                Chicken newChicken = new Chicken(name, weight, color);
+                newAnimals.add(newChicken);
+                animals.add(newChicken);
+                break;
+            default:
+                System.out.println("error");
+        }
+    }
+
+    public Animal findAnimalByName(String name) {
+        for (Animal animal : animals) {
+            if (animal.getName().equalsIgnoreCase(name)) {
+                return animal;
+            }
+        }
+        return null; // 이름으로 동물을 찾지 못한 경우
+    }
+
+    public void makeAnimalSpeak(String name) {
+        Animal animal = findAnimalByName(name);
+        if (animal != null) {
+            System.out.println(animal.speak());
+        } else {
+            System.out.println("error");
+        }
+    }
+
+    public void makeAllAnimalsSpeak() {
+        for (Animal animal : animals) {
+            System.out.println(animal.speak());
+        }
+    }
+
+    public void printAnimalAttributes() {
+        System.out.println("");
+        System.out.println("이름\t무게\t색깔");
+        for (Animal animal : animals) {
+            System.out.println(animal.getName() + "\t" + animal.getWeight() + "kg\t" + animal.getColor());
+        }
+    }
+
+    public void printNewAnimalAttributes() {
+        System.out.println("");
+        System.out.println("이름\t무게\t색깔");
+        for (Animal animal : newAnimals) {
+            System.out.println(animal.getName() + "\t" + animal.getWeight() + "kg\t" + animal.getColor());
+        }
+    }
+
+    public static void main(String[] args) {
+        AnimalFarm farm = new AnimalFarm();
+
+        // 기존 동물 추가
+        Dog dog1 = new Dog("choco", 10, "brown");
+        Dog dog2 = new Dog("bory", 8, "white");
+        Cat cat1 = new Cat("maru", 5, "black");
+        Cat cat2 = new Cat("cheeze", 4, "grey");
+        Chicken chicken1 = new Chicken("hen", 2, "yellow");
+        Chicken chicken2 = new Chicken("san", 3, "white");
+
+        farm.addAnimal(dog1);
+        farm.addAnimal(dog2);
+        farm.addAnimal(cat1);
+        farm.addAnimal(cat2);
+        farm.addAnimal(chicken1);
+        farm.addAnimal(chicken2);
+
+        // 모든 동물 소리내기
+        System.out.println("농장 안에 있는 모든 동물 소리 내기:");
+        farm.makeAllAnimalsSpeak();
+
+        // 특정 동물의 소리내기
+        System.out.println("\n특정 동물의 소리 내기:");
+        farm.makeAnimalSpeak("maru");
+
+        // 모든 동물 목록 출력
+        System.out.println("\n모든 동물 목록 출력:");
+        farm.printAnimalAttributes();
+
+        // 새로운 동물 추가
+        farm.addNewAnimal("newdog", 12, "gray", "dog");
+        farm.addNewAnimal("newcat", 6, "orange", "cat");
+
+        // 추가된 동물 출력
+        System.out.println("\n새로 추가된 동물 목록:");
+        farm.printNewAnimalAttributes();
+
+        // 이름으로 동물 객체 찾기
+        System.out.println("\n이름으로 동물 객체 찾기:");
+        Animal foundAnimal = farm.findAnimalByName("maru");
+        if (foundAnimal != null) {
+            System.out.println(foundAnimal.getClass().getSimpleName()); 
+// 찾은 동물의 클래스 이름 출력
+        } else {
+            System.out.println("error");
+        }
+    }
+class Animal {
+    private String name;
+    private int weight;
+    private String color;
+
+    public Animal(String name, int weight, String color) {
+        this.name = name;
+        this.weight = weight;
+        this.color = color;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public String speak() {
+        return "!";
+    }
+}
+class Cat extends Animal {
+    public Cat(String name, int weight, String color) {
+        super(name, weight, color);
+    }
+
+    @Override
+    public String speak() {
+        return "Meow!";
+    }
+}
+class Dog extends Animal {
+    public Dog(String name, int weight, String color) {
+        super(name, weight, color);
+    }
+
+    @Override
+    public String speak() {
+        return "Woof!";
+    }
+}
+class Chicken extends Animal {
+    public Chicken(String name, int weight, String color) {
+        super(name, weight, color);
+    }
+
+    @Override
+    public String speak() {
+        return "Coco!";
+    }
+}
