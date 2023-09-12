@@ -44,7 +44,7 @@ public class AnimalFarm {
                 return animal;
             }
         }
-        return null; // 이름으로 동물을 찾지 못한 경우
+        return null; 
     }
 
     public void makeAnimalSpeak(String name) {
@@ -121,7 +121,7 @@ public class AnimalFarm {
         Animal foundAnimal = farm.findAnimalByName("maru");
         if (foundAnimal != null) {
             System.out.println(foundAnimal.getClass().getSimpleName()); 
-// 찾은 동물의 클래스 이름 출력
+        // 찾은 동물의 클래스 이름 출력
         } else {
             System.out.println("error");
         }
